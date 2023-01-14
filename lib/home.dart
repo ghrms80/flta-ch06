@@ -1,3 +1,4 @@
+import 'package:ch06_interactive_widgets/screens/grocery_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'screens/explore_screen.dart';
@@ -16,8 +17,7 @@ class HomeState extends State<Home> {
   static List<Widget> pages = <Widget>[
     ExploreScreen(),
     RecipesScreen(),
-    // TODO: Replace with grocery screen
-    Container(color: Colors.blue),
+    const GroceryScreen(),
   ];
 
   void _onItemTapped(int index) {
