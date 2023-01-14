@@ -1,3 +1,4 @@
+import 'package:ch06_interactive_widgets/screens/empty_grocery_screen.dart';
 import 'package:flutter/material.dart';
 
 class GroceryScreen extends StatelessWidget {
@@ -5,10 +6,7 @@ class GroceryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace with EmptyGroceryScreen
-    return Container(
-      color: Colors.green,
-    );
+    return const EmptyGroceryScreen();
   }
   // TODO: Add buildGroceryScreen
 }
