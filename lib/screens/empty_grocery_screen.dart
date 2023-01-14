@@ -13,11 +13,37 @@ class EmptyGroceryScreen extends StatelessWidget {
         // 3
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            // TODO: Add empty image
-            // TODO: Add empty screen title
-            // TODO: Add empty screen subtitle
-            // TODO: Add browse recipes button
+          children: [
+            // 1
+            Flexible(
+              child: AspectRatio(
+                aspectRatio: 1 / 1,
+                child: Image.asset('assets/fooderlich_assets/empty_list.png'),
+              ),
+            ),
+            Text(
+              'No Groceries',
+              style: Theme.of(context).textTheme.headline6,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            const Text(
+              'Shopping for ingredients?\n'
+              'Tap the + button to write them down!',
+              textAlign: TextAlign.center,
+            ),
+            MaterialButton(
+              textColor: Colors.white,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(30.0),
+              ),
+              color: Colors.green,
+              onPressed: () {
+                // TODO: Go to Recipes Tab
+              },
+              child: const Text('Browse Recipes'),
+            ),
           ],
         ),
       ),
