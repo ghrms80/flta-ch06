@@ -1,5 +1,6 @@
 import 'package:ch06_interactive_widgets/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class GroceryItemScreen extends StatefulWidget {
   // 1
@@ -23,7 +24,6 @@ class GroceryItemScreen extends StatefulWidget {
 }
 
 class GroceryItemScreenState extends State<GroceryItemScreen> {
-  // TODO: Add grocery item screen state properties
   final _nameController = TextEditingController();
   String _name = '';
   Importance _importance = Importance.low;
@@ -32,7 +32,6 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
   Color _currentColor = Colors.green;
   int _currentSliderValue = 0;
 
-  // TODO: Add initState()
   @override
   void initState() {
     super.initState();
@@ -62,7 +61,6 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
     );
   }
 
-  // TODO: Add dispose()
   @override
   void dispose() {
     _nameController.dispose();
@@ -71,8 +69,43 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Add GroceryItemScreen Scaffold
-    return Container(color: Colors.orange);
+    // 1
+    return Scaffold(
+      // 2
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              // TODO: Add callback handler
+            },
+            icon: const Icon(Icons.check),
+          )
+        ],
+        // 3
+        elevation: 0.0,
+        // 4
+        title: Text(
+          'Grocery Item',
+          style: GoogleFonts.lato(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: ListView(
+          children: const [
+            // TODO: Add name TextField
+            // TODO: Add Importance selection
+            // TODO: Add date picker
+            // TODO: Add time picker
+            // TODO: Add color picker
+            // TODO: Add slider
+            // TODO: Add Grocery Tile
+          ],
+        ),
+      ),
+    );
   }
   // TODO: Add buildNameField()
 
