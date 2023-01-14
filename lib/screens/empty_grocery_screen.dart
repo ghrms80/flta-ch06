@@ -5,9 +5,22 @@ class EmptyGroceryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: Replace and add layout widgets
-    return Container(
-      color: Colors.purple,
+    // 1
+    return Padding(
+      padding: const EdgeInsets.all(30.0),
+      // 2
+      child: Center(
+        // 3
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            // TODO: Add empty image
+            // TODO: Add empty screen title
+            // TODO: Add empty screen subtitle
+            // TODO: Add browse recipes button
+          ],
+        ),
+      ),
     );
   }
 }
