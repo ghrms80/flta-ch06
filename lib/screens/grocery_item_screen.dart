@@ -1,5 +1,6 @@
 import 'package:ch06_interactive_widgets/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -100,8 +101,10 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
             buildImportanceField(),
             buildDateField(context),
             buildTimeField(context),
-            // TODO: Add color picker
-            // TODO: Add slider
+            const SizedBox(height: 10.0),
+            buildColorPicker(context),
+            const SizedBox(height: 10.0),
+            buildQuantityField(),
             // TODO: Add Grocery Tile
           ],
         ),
@@ -293,7 +296,112 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
     );
   }
 
-  // TODO: Add buildColorPicker()
+  Widget buildColorPicker(BuildContext context) {
+    // 1
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        // 2
+        Row(
+          children: [
+            Container(
+              height: 50.0,
+              width: 10.0,
+              color: _currentColor,
+            ),
+            const SizedBox(width: 8.0),
+            Text(
+              'Color',
+              style: GoogleFonts.lato(fontSize: 28.0),
+            ),
+          ],
+        ),
+        // 3
+        TextButton(
+          child: const Text('Select'),
+          onPressed: () {
+            // 4
+            showDialog(
+              context: context,
+              builder: (context) {
+                // 5
+                return AlertDialog(
+                  content: BlockPicker(
+                    pickerColor: Colors.white,
+                    // 6
+                    onColorChanged: (color) {
+                      setState(
+                        () {
+                          _currentColor = color;
+                        },
+                      );
+                    },
+                  ),
+                  actions: [
+                    // 7
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+        ),
+      ],
+    );
+  }
 
-  // TODO: Add buildQuantityField()
+  Widget buildQuantityField() {
+    // 1
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 2
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.baseline,
+          textBaseline: TextBaseline.alphabetic,
+          children: [
+            Text(
+              'Quantity',
+              style: GoogleFonts.lato(
+                fontSize: 28.0,
+              ),
+            ),
+            const SizedBox(
+              width: 16.0,
+            ),
+            Text(
+              _currentSliderValue.toInt().toString(),
+              style: GoogleFonts.lato(fontSize: 18.0),
+            ),
+          ],
+        ),
+        // 3
+        Slider(
+          // 4
+          inactiveColor: _currentColor.withOpacity(0.5),
+          activeColor: _currentColor,
+          // 5
+          value: _currentSliderValue.toDouble(),
+          // 6
+          min: 0.0,
+          max: 100.0,
+          // 7
+          divisions: 100,
+          // 8
+          label: _currentSliderValue.toInt().toString(),
+          // 9
+          onChanged: (double value) {
+            setState(() {
+              _currentSliderValue = value.toInt();
+            });
+          },
+        ),
+      ],
+    );
+  }
 }
