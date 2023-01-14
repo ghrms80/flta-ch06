@@ -1,6 +1,7 @@
 import 'package:ch06_interactive_widgets/models/models.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class GroceryItemScreen extends StatefulWidget {
   // 1
@@ -97,8 +98,8 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
           children: [
             buildNameField(),
             buildImportanceField(),
-            // TODO: Add date picker
-            // TODO: Add time picker
+            buildDateField(context),
+            buildTimeField(context),
             // TODO: Add color picker
             // TODO: Add slider
             // TODO: Add Grocery Tile
@@ -210,9 +211,87 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
     );
   }
 
-  // TODO: Add buildDateField()
+  Widget buildDateField(BuildContext context) {
+    // 1
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 2
+        Row(
+          // 3
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // 4
+            Text(
+              'Date',
+              style: GoogleFonts.lato(fontSize: 28.0),
+            ),
+            // 5
+            TextButton(
+              child: const Text('Select'),
+              // 6
+              onPressed: () async {
+                final currentDate = DateTime.now();
+                // 7
+                final selectedDate = await showDatePicker(
+                  context: context,
+                  initialDate: currentDate,
+                  firstDate: currentDate,
+                  lastDate: DateTime(currentDate.year + 5),
+                );
+                // 8
+                setState(() {
+                  if (selectedDate != null) {
+                    _dueDate = selectedDate;
+                  }
+                });
+              },
+            ),
+          ],
+        ),
+        Text(
+          DateFormat('yyyy-MM-dd').format(_dueDate),
+        ),
+      ],
+    );
+  }
 
-  // TODO: Add buildTimeField()
+  Widget buildTimeField(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Time of Day',
+              style: GoogleFonts.lato(fontSize: 28.0),
+            ),
+            TextButton(
+              onPressed: () async {
+                // 1
+                final timeOfDay = await showTimePicker(
+                  // 2
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                // 3
+                setState(() {
+                  if (timeOfDay != null) {
+                    _timeOfDay = timeOfDay;
+                  }
+                });
+              },
+              child: const Text('Select'),
+            ),
+          ],
+        ),
+        Text(
+          _timeOfDay.format(context),
+        ),
+      ],
+    );
+  }
 
   // TODO: Add buildColorPicker()
 
