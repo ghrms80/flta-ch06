@@ -94,8 +94,8 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
       body: Container(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
-          children: const [
-            // TODO: Add name TextField
+          children: [
+            buildNameField(),
             // TODO: Add Importance selection
             // TODO: Add date picker
             // TODO: Add time picker
@@ -107,7 +107,43 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
       ),
     );
   }
-  // TODO: Add buildNameField()
+
+  Widget buildNameField() {
+    // 1
+    return Column(
+      // 2
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // 3
+        Text(
+          'Item Name',
+          style: GoogleFonts.lato(fontSize: 28.0),
+        ),
+        // 4
+        TextField(
+          // 5
+          controller: _nameController,
+          // 6
+          cursorColor: _currentColor,
+          // 7
+          decoration: InputDecoration(
+            // 8
+            hintText: 'E.g. Apples, Banana, 1 Bag of salt',
+            // 9
+            enabledBorder: const UnderlineInputBorder(
+              borderSide: BorderSide(color: Colors.white),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: _currentColor),
+            ),
+            border: UnderlineInputBorder(
+              borderSide: BorderSide(color: _currentColor),
+            ),
+          ),
+        )
+      ],
+    );
+  }
 
   // TODO: Add buildImportanceField()
 
