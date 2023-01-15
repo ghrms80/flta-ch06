@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:uuid/uuid.dart';
 
 class GroceryItemScreen extends StatefulWidget {
   // 1
@@ -79,7 +80,29 @@ class GroceryItemScreenState extends State<GroceryItemScreen> {
         actions: [
           IconButton(
             onPressed: () {
-              // TODO: Add callback handler
+              // 1
+              final groceryItem = GroceryItem(
+                id: widget.originalItem?.id ?? const Uuid().v1(),
+                name: _nameController.text,
+                importance: _importance,
+                color: _currentColor,
+                quantity: _currentSliderValue,
+                date: DateTime(
+                  _dueDate.year,
+                  _dueDate.month,
+                  _dueDate.day,
+                  _timeOfDay.hour,
+                  _timeOfDay.minute,
+                ),
+              );
+
+              if (widget.isUpdateing) {
+                // 2
+                widget.onUpdate(groceryItem);
+              } else {
+                // 3
+                widget.onCreate(groceryItem);
+              }
             },
             icon: const Icon(Icons.check),
           )
