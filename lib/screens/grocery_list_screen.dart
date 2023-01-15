@@ -1,5 +1,6 @@
 import 'package:ch06_interactive_widgets/components/grocery_tile.dart';
 import 'package:ch06_interactive_widgets/models/models.dart';
+import 'package:ch06_interactive_widgets/screens/grocery_item_screen.dart';
 import 'package:flutter/material.dart';
 
 class GroceryListScreen extends StatelessWidget {
@@ -22,19 +23,64 @@ class GroceryListScreen extends StatelessWidget {
         itemCount: groceryItems.length,
         itemBuilder: (context, index) {
           final item = groceryItems[index];
-          // TODO: Wrap in a Dismissable
-          // TODO: Wrap in an InkWell
-          // 5
-          return GroceryTile(
-            key: Key(item.id),
-            item: item,
+
+          return Dismissible(
             // 6
-            onComplete: (change) {
-              // 7
-              if (change != null) {
-                manager.completeItem(index, change);
-              }
+            key: Key(item.id),
+            // 7
+            direction: DismissDirection.endToStart,
+            // 8
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: const Icon(
+                Icons.delete_forever,
+                color: Colors.white,
+                size: 50.0,
+              ),
+            ),
+            // 9
+            onDismissed: (direction) {
+              // 10
+              manager.deleteItem(index);
+              // 11
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('${item.name} dismissed'),
+                ),
+              );
             },
+            child: InkWell(
+              child: GroceryTile(
+                key: Key(item.id),
+                item: item,
+                onComplete: (change) {
+                  if (change != null) {
+                    manager.completeItem(index, change);
+                  }
+                },
+              ),
+              // 2
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => GroceryItemScreen(
+                      originalItem: item,
+                      // 3
+                      onUpdate: (item) {
+                        // 4
+                        manager.updateItem(item, index);
+                        // 5
+                        Navigator.pop(context);
+                      },
+                      // 6
+                      onCreate: (item) {},
+                    ),
+                  ),
+                );
+              },
+            ),
           );
         },
         // 8
